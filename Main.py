@@ -8,7 +8,7 @@ def submit_survey_response(a, b, c, d, e):
     urlReferer = GoogleURL + '/viewform'
 
     form_data = {
-        'entry.1194903177': a,  # Convert back to string for submission
+        'entry.1194903177': a,
         'entry.1642021955': b,
         'entry.157922501': c,
         'entry.123662009': d,
