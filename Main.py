@@ -1,44 +1,41 @@
-import requests
-import csv
+from URLMaker import URLMaker
+from Survey import SurveySubmitter
+from CSVReader import SurveyCSVReader
+from SurveyDataProcessor import SurveyDataProcessor
 
-def submit_survey_response(a, b, c, d, e):
-    GoogleURL = 'tvoi Url'
+def get_base_url():
+    #return input("Enter the base URL: ")
+    return 'https://docs.google.com/forms/d/e/1FAIpQLSeObLLkxB5g5Hfo7nhvPm7rfx1BEjdI-pb_ydT6HkYysYRq9Q'
+def get_csv_file_path():
+    #return input("Enter the CSV file path: ")
+    return '/Users/sailybaev/PycharmProjects/pythonProject2/db.csv'
 
-    urlResponse = GoogleURL + '/formResponse'
-    urlReferer = GoogleURL + '/viewform'
+def main():
+    base_url = get_base_url()
+    url_maker = URLMaker(base_url)
+    survey_submitter = SurveySubmitter(url_maker)
 
-    form_data = {
-        'entry.1194903177': a,
-        'entry.1642021955': b,
-        'entry.157922501': c,
-        'entry.123662009': d,
-        'entry.762022727': e
-    }
+    csv_file_path = get_csv_file_path()
+    csv_reader = SurveyCSVReader(csv_file_path)
+    survey_data = csv_reader.read_data_from_csv()
 
-    user_agent = {'Referer': urlReferer,
-                  'User-Agent': "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.52 Safari/537.36"}
+    data_processor = SurveyDataProcessor(survey_submitter)
+    data_processor.process_data(survey_data)
 
-    try:
-        r = requests.post(urlResponse, data=form_data, headers=user_agent)
-        r.raise_for_status()
-        print("Kaif! tebe povezlo")
-    except requests.RequestException as e:
-        print("Chort ekensn: ", e)
+if __name__ == "__main__":
+    main()
 
-def read_survey_data_from_csv(file_path):
-    with open(file_path, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        print(reader.fieldnames)
-        for row in reader:
+#https://docs.google.com/forms/d/e/1FAIpQLSeObLLkxB5g5Hfo7nhvPm7rfx1BEjdI-pb_ydT6HkYysYRq9Q
+#/Users/sailybaev/PycharmProjects/pythonProject2/db.csv
+# 1194903177,1642021955,157922501,123662009,762022727
+# 397594751
 
-            submit_survey_response(
-                row['a'],
-                row['b'],
-                row['c'],
-                row['d'],
-                row['e']
-            )
-            print("Submitted:", row)
 
-file_path = '/Users/sailybaev/PycharmProjects/pythonProject/db.csv'
-read_survey_data_from_csv(file_path)
+
+
+
+
+
+
+
+
