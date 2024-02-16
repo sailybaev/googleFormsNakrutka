@@ -12,4 +12,4 @@ class SurveyDataProcessor:
         for row in data:
             form_data = {f'entry.{entry_num.strip()}': str(value) for entry_num, value in zip(entry_numbers, row.values())}
             self.survey_submitter.submit_response(form_data)
-            print("Submitted:", row)
+            print('\033[36m'+"Submitted:", row)

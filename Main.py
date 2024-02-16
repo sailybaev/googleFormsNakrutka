@@ -2,13 +2,14 @@ from URLMaker import URLMaker
 from Survey import SurveySubmitter
 from CSVReader import SurveyCSVReader
 from SurveyDataProcessor import SurveyDataProcessor
+import colorama
 
 def get_base_url():
-    #return input("Enter the base URL: ")
-    return 'https://docs.google.com/forms/d/e/1FAIpQLSeObLLkxB5g5Hfo7nhvPm7rfx1BEjdI-pb_ydT6HkYysYRq9Q'
+    return input("Enert google forms URL: ")
+    #return 'https://docs.google.com/forms/d/e/1FAIpQLSeObLLkxB5g5Hfo7nhvPm7rfx1BEjdI-pb_ydT6HkYysYRq9Q'
 def get_csv_file_path():
-    #return input("Enter the CSV file path: ")
-    return '/Users/sailybaev/PycharmProjects/pythonProject2/db.csv'
+    return input("Enter path to the CSV file: ")
+    #return '/Users/sailybaev/PycharmProjects/pythonProject2/db.csv'
 
 def main():
     base_url = get_base_url()

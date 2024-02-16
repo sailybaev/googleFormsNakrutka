@@ -1,0 +1,12 @@
+{
+    "user1": {"username": "zari", "password": "1234"},
+    "user2": {"username": "user2", "password": "pass2"},
+    "user3": {"username": "user3", "password": "pass3"},
+    "user4": {"username": "user4", "password": "pass4"},
+    "user5": {"username": "user5", "password": "pass5"},
+    "user6": {"username": "user6", "password": "pass6"},
+    "user7": {"username": "user7", "password": "pass7"},
+    "user8": {"username": "user8", "password": "pass8"},
+    "user9": {"username": "user9", "password": "pass9"},
+    "user10": {"username": "user10", "password": "pass10"}
+}
