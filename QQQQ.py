@@ -1,51 +1,80 @@
-import requests
-import csv
+from tkinter import Tk, Label, Entry, Button, filedialog
+from URLMaker import URLMaker
+from Survey import SurveySubmitter
+from CSVReader import SurveyCSVReader
+from SurveyDataProcessor import SurveyDataProcessor
 
-def submit_survey_response(a, b, c, d, e):
-    GoogleURL = 'https://docs.google.com/forms/d/e/1FAIpQLSeObLLkxB5g5Hfo7nhvPm7rfx1BEjdI-pb_ydT6HkYysYRq9Q'
+class SurveyApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Survey Data Submission")
 
-    urlResponse = GoogleURL + '/formResponse'
-    urlReferer = GoogleURL + '/viewform'
+        self.base_url_label = Label(root, text="Enter Google Forms URL:")
+        self.base_url_label.pack()
 
-    form_data = {
-        'entry.1194903177': a,
-        'entry.1642021955': b,
-        'entry.157922501': c,
-        'entry.123662009': d,
-        'entry.762022727': e
-    }
+        self.base_url_entry = Entry(root)
+        self.base_url_entry.pack()
 
-    user_agent = {'Referer': urlReferer,
-                  'User-Agent': "Mozilla/5.0 (X11; Linux i686) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.52 Safari/537.36"}
+        self.entries_label = Label(root, text="Enter entry numbers (comma-separated):")
+        self.entries_label.pack()
 
-    try:
-        print("fromd-",form_data)
-        r = requests.post(urlResponse, data=form_data, headers=user_agent)
-        r.raise_for_status()
-        print("Kaif! tebe povezlo")
-    except requests.RequestException as e:
-        print("Chort ekensn: ", e)
+        self.entries_entry = Entry(root)
+        self.entries_entry.pack()
 
-def read_survey_data_from_csv(file_path):
-    with open(file_path, newline='') as csvfile:
-        reader = csv.DictReader(csvfile)
-        print(reader.fieldnames)
-        for row in reader:
+        self.browse_button = Button(root, text="Browse CSV", command=self.browse_csv)
+        self.browse_button.pack()
 
-            submit_survey_response(
-                row['a'],
-                row['b'],
-                row['c'],
-                row['d'],
-                row['e']
-            )
-            print("Submitted:", row)
+        self.csv_status_label = Label(root, text="CSV not added", fg="red")
+        self.csv_status_label.pack()
 
-file_path = '/Users/sailybaev/PycharmProjects/pythonProject2/db.csv'
-read_survey_data_from_csv(file_path)
+        self.submit_button = Button(root, text="Submit Survey", command=self.submit_survey)
+        self.submit_button.pack()
 
-#Submitted: {'a': '4', 'b': 'Yes', 'c': 'Yes', 'd': 'Encourage intercultural events and festivals', 'e': 'Yes'}
-#Submitted: {'a': '4', 'b': 'Yes', 'c': 'Yes', 'd': 'Encourage intercultural events and festivals', 'e': 'Yes'}
+        self.csv_file_path = ""
 
 
-#fromd- {'entry.1194903177': 'a', 'entry.1642021955': 'b', 'entry.157922501': 'c', 'entry.123662009': 'd', 'entry.762022727': 'e'}
+
+
+    def browse_csv(self):
+        self.csv_file_path = filedialog.askopenfilename(filetypes=[("CSV Files", "*.csv")])
+        if self.csv_file_path:
+            self.csv_status_label.config(text="CSV added", fg="green")
+
+    def submit_survey(self):
+        base_url = self.base_url_entry.get()
+        entry_numbers = self.entries_entry.get().split(',')
+
+        url_maker = URLMaker(base_url)
+        survey_submitter = SurveySubmitter(url_maker)
+
+        if not self.csv_file_path:
+            print("Please select a CSV file.")
+            return
+
+        csv_reader = SurveyCSVReader(self.csv_file_path)
+        survey_data = csv_reader.read_data_from_csv()
+
+        data_processor = SurveyDataProcessor(survey_submitter)
+        data_processor.process_data(survey_data, entry_numbers)
+
+
+if __name__ == "__main__":
+    root = Tk()
+    app = SurveyApp(root)
+    root.mainloop()
+
+
+#https://docs.google.com/forms/d/e/1FAIpQLSeObLLkxB5g5Hfo7nhvPm7rfx1BEjdI-pb_ydT6HkYysYRq9Q
+#/Users/sailybaev/PycharmProjects/pythonProject2/db.csv
+# 1194903177,1642021955,157922501,123662009,762022727
+# 397594751
+
+
+
+
+
+
+
+
+
+

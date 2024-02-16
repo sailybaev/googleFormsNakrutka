@@ -1,4 +1,3 @@
-# survey_submitter.py
 import requests
 
 class SurveySubmitter:
@@ -16,6 +15,6 @@ class SurveySubmitter:
             print("fromd-", form_data)
             r = requests.post(url_response, data=form_data, headers=user_agent)
             r.raise_for_status()
-            print('\033[32m'+"Kaif! Tebe povezlo")
+            print('\033[32m'+"Prowlo")
         except requests.RequestException as e:
-            print('\033[31m'+"Chort ekensn:", e)
+            print('\033[31m'+"Owibka:", e)
