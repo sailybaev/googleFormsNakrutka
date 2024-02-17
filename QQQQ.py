@@ -1,7 +1,7 @@
 from tkinter import Tk, Label, Entry, Button, filedialog
 from URLMaker import URLMaker
 from Survey import SurveySubmitter
-from CSVReader import SurveyCSVReader
+from JSONReader import SurveyCSVReader
 from SurveyDataProcessor import SurveyDataProcessor
 
 class SurveyApp:

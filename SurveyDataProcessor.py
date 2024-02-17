@@ -2,7 +2,7 @@ class SurveyDataProcessor:
     def __init__(self, survey_submitter):
         self.survey_submitter = survey_submitter
 
-    def process_data(self, data , entry_numbers):
+    def process_data(self, data, entry_numbers):
         if not data:
             print("No data to process.")
             return
