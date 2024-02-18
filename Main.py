@@ -1,8 +1,8 @@
 from tkinter import Tk, Label, Entry, Button, filedialog
-from URLMaker import URLMaker
-from Survey import SurveySubmitter
-from JSONReader import SurveyJSONReader
-from SurveyDataProcessor import SurveyDataProcessor
+from models.URLMaker import URLMaker
+from tools.Survey import SurveySubmitter
+from tools.JSONReader import SurveyJSONReader
+from tools.SurveyDataProcessor import SurveyDataProcessor
 
 class SurveyApp:
     def __init__(self, root):
