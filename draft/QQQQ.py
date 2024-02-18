@@ -1,7 +1,7 @@
 from tkinter import Tk, Label, Entry, Button, filedialog
 from models.URLMaker import URLMaker
 from tools.Survey import SurveySubmitter
-from tools.JSONReader import SurveyCSVReader
+from tools.FileReader import SurveyFileReader
 from tools.SurveyDataProcessor import SurveyDataProcessor
 
 class SurveyApp:
@@ -51,7 +51,7 @@ class SurveyApp:
             print("Please select a CSV file.")
             return
 
-        csv_reader = SurveyCSVReader(self.csv_file_path)
+        csv_reader = SurveyFileReader(self.csv_file_path)
         survey_data = csv_reader.read_data_from_csv()
 
         data_processor = SurveyDataProcessor(survey_submitter)

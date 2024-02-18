@@ -1,7 +1,7 @@
 from tkinter import Tk, Label, Entry, Button, filedialog
 from models.URLMaker import URLMaker
 from tools.Survey import SurveySubmitter
-from tools.JSONReader import SurveyJSONReader
+from tools.FileReader import SurveyFileReader
 from tools.SurveyDataProcessor import SurveyDataProcessor
 
 class SurveyApp:
@@ -51,7 +51,7 @@ class SurveyApp:
             print("Please select a JSON file.")
             return
 
-        json_reader = SurveyJSONReader(self.json_file_path)
+        json_reader = SurveyFileReader(self.json_file_path)
         survey_data = json_reader.read_data_from_json()
 
         data_processor = SurveyDataProcessor(survey_submitter)
