@@ -15,3 +15,4 @@ class SurveyFileReader:
             data = csv.reader(csvfile)
         return list(data)
 
+
