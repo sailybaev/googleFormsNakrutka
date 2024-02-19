@@ -1,0 +1,13 @@
+[{"entries": "11355594292114464800,1352402628,509642671,34648482,972909645,1405518975,750277378,1995628285,546101484", "link": "https://docs.google.com/forms/d/e/1FAIpQLScCB1m35Et28Ylx98ry5vxVQhxFudq5_eCbHGQdybAiEd2L-g"},
+  {"Gender": "Male", "Age": 18, "Digital_Skills": "High", "Challenges": "Lack of access to the internet and information technologies", "Importance_Level": "Yes, very important", "Interest_Level": "High", "Indifference": "Yes", "Priority_Action": "Improve internet access", "Future_Affect": "Digitalization will lead to increased connectivity and efficiency in Kazakhstan.", "Trust_Affect": "Digitalization will enhance trust by increasing transparency and accessibility of government processes."},{
+    "Gender": "Female",
+    "Age": 19,
+    "Digital_Skills": "Medium",
+    "Challenges": "Low digital literacy among political actors and the public",
+    "Importance_Level": "Yes, important",
+    "Interest_Level": "Medium",
+    "Indifference": "No",
+    "Priority_Action": "Enhance cybersecurity measures",
+    "Future_Affect": "Digitalization will bring about positive economic growth and innovation.",
+    "Trust_Affect": "Digitalization will initially face skepticism but can improve trust over time through increased accountability."
+  }]
