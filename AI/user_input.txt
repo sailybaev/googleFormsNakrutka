@@ -1,0 +1,12 @@
+Male/Female
+scale from 16 to 20
+Very low/Low/Medium/High/Very high
+Lack of access to the internet and information technologies/Low digital literacy among political/actors and the public/Insufficient data protection and cybersecurity measures/Absence of electronic citizen participation in the political process/Lack of resources and funding for digitalization efforts in the political sphere
+Yes, very important/Yes, important/No, not very important/No, not important
+High/Medium/Low
+Yes/No/I'm indifferent
+Improve internet access/Enhance cybersecurity measures/Develop new legislation
+How will digitalization affect the future of Kazakhstan? free text
+How do you think digitalization of the political sphere will affect the level of trust in government? free text
+
+

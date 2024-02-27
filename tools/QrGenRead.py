@@ -40,6 +40,6 @@ class QRScanner:
 
         self.master.after(10, self.scan_qr_code)
 
-    def close_scanner(self):
-        self.cap.release()
-        self.master.destroy()
+
+
+

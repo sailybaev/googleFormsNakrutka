@@ -1,10 +1,12 @@
-from tkinter import Tk, Label, Entry, Button, Menu, filedialog, Toplevel
+from tkinter import Tk, Label, Entry, Button, Menu, filedialog, Toplevel, Text
 import json
 from models.URLMaker import URLMaker
 from tools.Survey import SurveySubmitter
 from tools.FileReader import SurveyFileReader
 from tools.SurveyDataProcessor import SurveyDataProcessor
 from tools.QrGenRead import QRScanner
+from AI import GenResponses
+from AI import TextProcessor
 
 class SurveyApp:
     def __init__(self, root):
@@ -44,6 +46,30 @@ class SurveyApp:
         self.submit_button = Button(root, text="Submit Survey", command=self.submit_survey)
         self.submit_button.pack()
 
+        self.generate_ai_label = Label(root, text="AI Generate:")
+        self.generate_ai_label.pack()
+
+        self.num_responses_label = Label(root, text="Number of Responses (3-6):")
+        self.num_responses_label.pack()
+
+        self.num_responses_entry = Entry(root)
+        self.num_responses_entry.pack()
+
+        self.details_label = Label(root, text="Details of Questions:")
+        self.details_label.pack()
+
+        self.details_entry = Entry(root)
+        self.details_entry.pack()
+
+        self.generate_ai_button = Button(root, text="Generate AI Text", command=self.generate_ai_text)
+        self.generate_ai_button.pack()
+
+        self.generated_ai_text_label = Label(root, text="Generated AI Text:")
+        self.generated_ai_text_label.pack()
+
+        self.generated_ai_text = Text(root, height=5, width=40)
+        self.generated_ai_text.pack()
+
         self.json_file_path = ""
 
     def browse_json(self):
@@ -62,10 +88,10 @@ class SurveyApp:
         if len(qr_parts) == 2:
             entries_and_link, user_info = qr_parts
 
-            with open("/Users/sailybaev/PycharmProjects/googleFormsNakrutka/tempFiles/entries_and_link.json", "w") as entries_file:
+            with open("tempFiles/entries_and_link.json", "w") as entries_file:
                 json.dump(entries_and_link, entries_file, indent=2)
 
-            with open("/Users/sailybaev/PycharmProjects/googleFormsNakrutka/tempFiles/user_info.json", "w") as user_info_file:
+            with open("tempFiles/user_info.json", "w") as user_info_file:
                 json.dump(user_info, user_info_file, indent=2)
 
             self.base_url_entry.delete(0, 'end')
@@ -95,31 +121,22 @@ class SurveyApp:
         data_processor = SurveyDataProcessor(survey_submitter)
         data_processor.process_data(survey_data, entry_numbers)
 
-    def process_survey_information(self, survey_info):
-        entry_numbers = survey_info.get("entries", "").split(',')
-        google_forms_link = survey_info.get("link", "")
+    def generate_ai_text(self):
+        num_responses = int(self.num_responses_entry.get())
+        details_of_questions = self.details_entry.get()
 
-        self.entries_entry.delete(0, 'end')
-        self.entries_entry.insert(0, ','.join(entry_numbers))
-        self.base_url_entry.delete(0, 'end')
-        self.base_url_entry.insert(0, google_forms_link)
-        self.json_status_label.config(text="Survey information processed", fg="green")
+        with open('AI/user_input.txt' , 'w') as f:
+            f.write(details_of_questions)
 
-    def process_survey_responses(self, survey_responses):
-        base_url = self.base_url_entry.get()
-        entry_numbers = self.entries_entry.get().split(',')
+        gen = GenResponses.GenResponses()
+        tt = TextProcessor.TextProcessor()
+        query = tt.get_input("AI/user_input.txt", num_responses)
 
-        if not base_url or not entry_numbers:
-            print("Please enter a Google Forms URL or scan a QR code.")
-            return
+        generated_text = gen.genResp(query, 'tempFiles/aiGeneratedJson.json')
 
-        url_maker = URLMaker(base_url)
-        survey_submitter = SurveySubmitter(url_maker)
-
-        survey_data = survey_responses[0]
-
-        data_processor = SurveyDataProcessor(survey_submitter)
-        data_processor.process_data(survey_data, entry_numbers)
+        # Update the Text widget with the generated text.
+        self.generated_ai_text.delete(1.0, 'end')  # Clear existing text
+        self.generated_ai_text.insert('end', "Json is generated, now you can\nchoose it in json selector\nfile name: aiGeneratedJson.json")
 
 if __name__ == "__main__":
     root = Tk()

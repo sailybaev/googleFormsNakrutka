@@ -1,4 +1,5 @@
-[
+{
+  "responses": [
   {
     "Gender": "Male",
     "Age": 18,
@@ -864,3 +865,5 @@
     "Trust_Affect": "Trust will increase as citizens perceive the government as more responsive and accessible."
   }
   ]
+
+}

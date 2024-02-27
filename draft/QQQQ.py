@@ -1,4 +1,8 @@
-import json
-from tools.QrGenRead import QRScanner
+from AI import GenResponses
+from AI import TextProcessor
 
-q = QRScanner.json_to_qr('test.json')
+
+gen = GenResponses.GenResponses()
+tt = TextProcessor.TextProcessor()
+query = tt.get_input("/Users/sailybaev/PycharmProjects/googleFormsNakrutka/AI/user_input.txt" , 10)
+gen.genResp(query , '/Users/sailybaev/PycharmProjects/googleFormsNakrutka/tempFiles/aiGeneratedJson.json')

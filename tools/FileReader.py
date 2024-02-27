@@ -8,7 +8,7 @@ class SurveyFileReader:
     def read_data_from_json(self):
         with open(self.file_path, 'r') as jsonfile:
             data = json.load(jsonfile)
-        return data
+        return data['responses']
 
     def read_data_from_csv(self):
         with open(self.file_path, 'r') as csvfile:
