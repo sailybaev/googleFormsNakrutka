@@ -7,4 +7,7 @@ csv file daindaisn <br>
 <br>
 Zapusk !
 
-
+<br>
+AI (beta) <br>
+Do not forget to add Gemini API
+https://aistudio.google.com/
